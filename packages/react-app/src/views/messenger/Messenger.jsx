@@ -41,29 +41,30 @@ function Messenger({ address, tx, provider, readContracts, writeContracts, crede
 
   const processRecievedMessages = async () => {
     let formatted = { [contactAddress]: [] };
-    for (let m of userMessages) {
-      const block = await provider.getBlock(m.blockNumber);
-      const rMessage = {
-        message: m.message,
-        to: m.to,
-        from: m.from,
-        blockNumber: m.blockNumber,
-        timestamp: block.timestamp,
-      };
-      try {
-        const message = await EthCrypto.decryptWithPrivateKey(
-          credentials.privKey, // privateKey
-          JSON.parse(m.message),
-        );
-        rMessage.message = message;
-      } catch (e) {}
-      if (formatted[rMessage.from]) {
-        formatted[rMessage.from].push(rMessage);
-      } else {
-        Object.assign({}, formatted, { [rMessage.from]: [rMessage] });
+    if (userMessages && userMessages.length > 0) {
+      for (let m of userMessages) {
+        const block = await provider.getBlock(m.blockNumber);
+        const rMessage = {
+          message: m.message,
+          to: m.to,
+          from: m.from,
+          blockNumber: m.blockNumber,
+          timestamp: block.timestamp,
+        };
+        try {
+          const message = await EthCrypto.decryptWithPrivateKey(
+            credentials.privKey, // privateKey
+            JSON.parse(m.message),
+          );
+          rMessage.message = message;
+        } catch (e) {}
+        if (formatted[rMessage.from]) {
+          formatted[rMessage.from].push(rMessage);
+        } else {
+          Object.assign({}, formatted, { [rMessage.from]: [rMessage] });
+        }
       }
     }
-
     setReceivedMessages(Object.assign({}, receivedMessages, formatted));
   };
 
