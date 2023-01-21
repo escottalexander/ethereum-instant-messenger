@@ -2,6 +2,7 @@
 
 > Send encrypted messages to any address - Built with Scaffold-Eth
 
+See demo here: [https://ethereum-instant-messenger.surge.sh](https://ethereum-instant-messenger.surge.sh)
 
 A prototype to demonstrate the use of public key cryptography for the sending and receiving of messages.
 Through the use of ephemeral keys, we can encrypt and decrypt messages without using/exposing a users
@@ -76,7 +77,7 @@ cd ethereum-instant-messenger
 yarn deploy
 ```
 
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+🔏 Edit your smart contract `EthereumInstantMessenger.sol` in `packages/hardhat/contracts`
 
 📝 Edit your frontend `App.jsx` in `packages/react-app/src`
 
